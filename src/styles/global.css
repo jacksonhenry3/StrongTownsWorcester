@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --stw-primary: #2d2473;
+  --stw-secondary: #f4e623;
+  --stw-accent: #c6312d;
+}
+
+/* small helpers */
+.container{
+  @apply max-w-5xl mx-auto px-4;
+}
+
+/* accessible focus ring for links and buttons */
+a:focus, button:focus {
+  @apply outline-none ring-4 ring-stw-primary/30;
+}
