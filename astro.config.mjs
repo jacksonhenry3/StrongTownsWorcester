@@ -4,5 +4,4 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://jacksonhenry.net',
   base: '/StrongTownsWorcester',
-  outDir: 'docs',
 });
