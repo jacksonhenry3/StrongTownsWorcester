@@ -3,18 +3,59 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Strong Towns Worcester, MA | Building a More Resilient City">
-    <section class="bg-gray-50 py-16 md:py-24">
+    <section class="pt-12 md:pt-16 pb-6">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
-                    <span class="emoji">🚧</span> Under Construction
+                <h1 class="text-3xl md:text-5xl font-extrabold text-stw-primary mb-4">
+                    Strong Towns Worcester
                 </h1>
-                <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto">
-                    This page is currently under construction. Please check back later.
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto mb-8">
+                    Empowering Worcester to build a resilient and inclusive community where walking, biking, and incremental development thrive. Together we advocate and act to create vibrant neighborhoods and transportation freedom.
                 </p>
-                <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto mt-4">
-                    In the meantime, join our <a href="https://discord.gg/JszTyuxxaZ" target="_blank" rel="noopener noreferrer" class="text-stw-primary underline font-medium">Discord</a> to stay up to date.
-                </p>
+                <a href="https://discord.gg/JszTyuxxaZ" target="_blank" rel="noopener noreferrer" class="inline-block bg-stw-primary hover:opacity-90 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl">
+                    Join our Discord
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="pt-6 pb-16 md:pb-24">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">Our Core Goals</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Goal 1 -->
+                <div class="bg-stw-primary p-8 rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center h-full group">
+                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-4xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        🚲
+                    </div>
+                    <h3 class="text-2xl font-black text-stw-secondary mb-3">Safe Streets</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        We prioritize <span class="font-bold text-stw-secondary">people over speed</span>. Designing streets for walking and biking creates a safer, wealthier, and more inviting city for everyone.
+                    </p>
+                </div>
+
+                <!-- Goal 2 -->
+                <div class="bg-stw-primary p-8 rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center h-full group">
+                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-4xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        🚌
+                    </div>
+                    <h3 class="text-2xl font-black text-stw-secondary mb-3">Better Transit</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        A strong town needs strong transit. We advocate for <span class="font-bold text-stw-secondary">frequent, reliable buses</span> that treat riders with dignity and connect our community.
+                    </p>
+                </div>
+
+                <!-- Goal 3 -->
+                <div class="bg-stw-primary p-8 rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center h-full group">
+                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-4xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        🏗️
+                    </div>
+                    <h3 class="text-2xl font-black text-stw-secondary mb-3">Action on Plans</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        We support the <span class="font-bold text-stw-secondary">Now | Next</span>, Vision Zero, and Housing plans. It's time to stop planning and start building a resilient Worcester.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
