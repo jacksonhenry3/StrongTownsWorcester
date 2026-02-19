@@ -2,7 +2,7 @@
 title: "October Update: Elections, Meetings, and Transit" 
 description: "Join us for our next meeting with AHMA, city council election updates, and new advocacy efforts for a more resilient Worcester." 
 publishDate: "01 Oct 2025" 
-image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Downtown_Worcester%2C_Massachusetts.jpg/1920px-Downtown_Worcester%2C_Massachusetts.jpg"
+image: "https://upload.wikimedia.org/wikipedia/commons/1/1e/WorcesterMA_AntiquarianSociety_2.jpg"
 ---
 # October Update: Elections, Meetings, and Transit
 
