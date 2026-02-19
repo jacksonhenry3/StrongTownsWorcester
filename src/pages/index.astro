@@ -1,13 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SocialLinks from '../components/SocialLinks.astro';
 ---
 
 <Layout title="Strong Towns Worcester, MA | Building a More Resilient City">
-		<section class="bg-white py-16 md:py-24">
-			<div class="container mx-auto px-4">
-				<div class="max-w-4xl mx-auto text-center">
-					<h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Building an Accesible, Safe, Resilient, and  Financially Strong Worcester</h1>
+    <section class="pt-12 md:pt-16 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-3xl md:text-5xl font-extrabold text-stw-primary mb-4">
+                    Strong Towns Worcester
+                </h1>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto mb-8">
+                    Empowering Worcester to build a resilient and inclusive community where walking, biking, and incremental development thrive. Together we advocate and act to create vibrant neighborhoods and transportation freedom.
+                </p>
+                <a href="https://discord.gg/JszTyuxxaZ" target="_blank" rel="noopener noreferrer" class="inline-block bg-stw-primary hover:opacity-90 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl">
+                    Join our Discord
+                </a>
+            </div>
+        </div>
+    </section>
 
 					<p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto">
 						We are a community of advocates in Worcester, MA, part of the national
@@ -20,30 +30,16 @@ import SocialLinks from '../components/SocialLinks.astro';
 							Join the Conversation
 						</a>
 
-						<a href="/about" class="inline-flex items-center gap-2 border border-gray-200 text-gray-800 bg-white px-4 py-3 rounded-lg shadow-sm hover:shadow-md">Learn More</a>
-					</div>
-				</div>
-
-				<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-					<div class="p-6 bg-white rounded-xl shadow-sm">
-						<h3 class="font-bold text-stw-primary mb-2">Development
-						</h3>
-						<p class="text-gray-600 text-sm">More permissable zoning laws to create vibrant mixed use neighborhoods.</p>
-					</div>
-					<div class="p-6 bg-white rounded-xl shadow-sm">
-						<h3 class="font-bold text-stw-primary mb-2">Better transportation</h3>
-						<p class="text-gray-600 text-sm"> Higher quality trasnsit to reduce trafic and promote mobility</p>
-					</div>
-					<div class="p-6 bg-white rounded-xl shadow-sm">
-						<h3 class="font-bold text-stw-primary mb-2">Safer Streets</h3>
-						<p class="text-gray-600 text-sm">Safer and walkable streets so to enable everyone to get where they need safely.</p>
-					</div>
-				</div>
-			</div>
-		</section>
-
-	<section class="bg-stw-primary">
-		<SocialLinks />
-	</section>
-
+                <!-- Goal 3 -->
+                <div class="bg-stw-primary p-8 rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center h-full group">
+                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-4xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        🏗️
+                    </div>
+                    <h3 class="text-2xl font-black text-stw-secondary mb-3">Local Accountability</h3>
+                    <p class="text-gray-300 leading-relaxed text-left">
+We actively support the <a href="https://www.worcesterma.gov/worcester-now-next" target="_blank" rel="noopener noreferrer" class="text-stw-secondary underline hover:text-white">Now | Next Citywide Plan</a> and the <a href="https://www.worcesterma.gov/mobility/vision-zero" target="_blank" rel="noopener noreferrer" class="text-stw-secondary underline hover:text-white">Vision Zero initiative</a> to make Worcester more self-reliant, accessible, and affordable. By championing these specific plans, we ensure our tax dollars go toward <a href="https://www.strongtowns.org/housing" target="_blank" rel="noopener noreferrer" class="text-stw-secondary underline hover:text-white">building housing</a> and infrastructure that offer a <a href="https://www.strongtowns.org/accounting" target="_blank" rel="noopener noreferrer" class="text-stw-secondary underline hover:text-white">real return for our community</a>. This focus on results ensures every resident can participate in our local economy and contributes to a more resilient future for everyone.                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 </Layout>

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build --outDir docs",
     "preview": "astro preview",
     "astro": "astro",
     "tailwind:build": "tailwindcss -i src/styles/global.css -o public/styles/global.css",
@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/jacksonhenry3/StrongTownsWorcester#readme",
   "dependencies": {
-    "astro": "^5.15.0"
+    "@tailwindcss/typography": "^0.5.19",
+    "astro": "^5.15.0",
+    "typography": "^0.16.24"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
