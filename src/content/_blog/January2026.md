@@ -9,7 +9,7 @@ image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Union_Station_Novemb
 
 Hello Worcester Strong Towners!
 
-**Next Meeting:** Our next meeting is this **Saturday, January 10th, from 4pm-5:30pm**. This meeting will be held **remotely via Discord**. If you have not been to our Discord, [you can find the link here](https://www.google.com/search?q=%23 "null").
+**Next Meeting:** Our next meeting is this **Saturday, January 10th, from 4pm-5:30pm**. This meeting will be held **remotely via Discord**. If you have not been to our Discord, [you can find the link here](https://discord.gg/JszTyuxxaZ).
 
 At our December meeting, we began brainstorming priority campaigns for 2026. Our January meeting will be a continuation of that brainstorming—and even if you could not make it in December, we definitely want to hear everyone’s ideas, so please be sure to make it if you can. We’re also planning a video (15-30 minute) watch party on a Strong Towns topic of interest.
 
@@ -34,11 +34,11 @@ If you have **any ideas at all that you think Strong Towns would be perfect for*
 
 ## Action Items
 
-**GIS Tutorial:** In our November 2025 meeting, we learned about various data available from the City of Worcester, MassMapper, and more that can help us to visualize the world. Our conversation then generated a lot of discussion about GIS resources and capabilities. We’d love to continue those discussions. If there is any interest in a **follow-up, in-depth, GIS tutorial meeting**, let us know your thoughts via [this short survey](https://www.google.com/search?q=%23 "null").
+**GIS Tutorial:** In our November 2025 meeting, we learned about various data available from the City of Worcester, MassMapper, and more that can help us to visualize the world. Our conversation then generated a lot of discussion about GIS resources and capabilities. We’d love to continue those discussions. If there is any interest in a **follow-up, in-depth, GIS tutorial meeting**, let us know your thoughts via [this short survey](https://docs.google.com/forms/d/e/1FAIpQLSdAHZ3mMjd8i89Co_xh3HhH0ccudQB8EfT6QvNWu-rVCmyzew/viewform).
 
 **Vernon Connected:** This is a planning effort regarding the future of the Vernon Street Bridge and the surrounding neighborhoods. These are neighborhoods that were separated by I-290 decades ago, and this is an opportunity to reconnect them.
 
-- You can learn more about Vernon Connected [here](https://www.google.com/search?q=%23 "null").
+- You can learn more about Vernon Connected [here](https://vernon-connected-cmrpc.hub.arcgis.com/).
     
 - Importantly, you can **take a short survey** at the top of the same page asking how YOU use the Vernon Street Bridge and what you envision for the area in the future.
     

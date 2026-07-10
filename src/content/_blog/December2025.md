@@ -15,11 +15,11 @@ Thank you to everyone for attending our November meeting. We got a quick introdu
 
 ## Action Items
 
-**GIS Tutorial Interest:** Our November meeting generated a lot of discussion about GIS resources, capabilities, and more (and many of us even stayed later than scheduled to keep chatting about it!). If there is any interest in a **follow-up GIS tutorial meeting**, let us know your thoughts via [this survey](https://www.google.com/search?q=%23 "null").
+**GIS Tutorial Interest:** Our November meeting generated a lot of discussion about GIS resources, capabilities, and more (and many of us even stayed later than scheduled to keep chatting about it!). If there is any interest in a **follow-up GIS tutorial meeting**, let us know your thoughts via [this survey](https://docs.google.com/forms/d/e/1FAIpQLSdAHZ3mMjd8i89Co_xh3HhH0ccudQB8EfT6QvNWu-rVCmyzew/viewform).
 
 **Vernon Connected:** This is a planning effort regarding the future of the Vernon Street Bridge and the surrounding neighborhoods. These are neighborhoods that were separated by I-290 decades ago, and this is an opportunity to reconnect them.
 
-- You can learn more about Vernon Connected [here](https://www.google.com/search?q=%23 "null") as well as access and answer a survey.
+- You can learn more about Vernon Connected [here](https://vernon-connected-cmrpc.hub.arcgis.com/) as well as access and answer a survey.
     
 - If you’ve ever encountered an issue with the transportation network in this area, you can add a marker to the map to bring the project team’s attention to it.
     

@@ -9,7 +9,7 @@ Hello Worcester Strong Towners!
 
 **Next Meeting:** Our next general meeting is this **Saturday, February 7th, from 4pm-5:30pm**. This meeting will be held **in person at Technocopia at 44 Portland Street** (please use the furthest door to the left and the intercom – you’ll need to scroll to Technocopia on the touchscreen to call up).
 
-We will be starting with a presentation from Nathan Lewis about the **Vernon Connected** initiative and we’ll be doing a **“Love Your City”** activity. In addition, if you are able, we think it would be great if those attending would consider bringing a food item for the community fridge located just outside the Printers’ Building on Portland Street! You can find information about the “Woo Fridges” [here](https://www.google.com/search?q=%23 "null").
+We will be starting with a presentation from Nathan Lewis about the **Vernon Connected** initiative and we’ll be doing a **“Love Your City”** activity. In addition, if you are able, we think it would be great if those attending would consider bringing a food item for the community fridge located just outside the Printers’ Building on Portland Street! You can find information about the “Woo Fridges” [here](https://www.woofridge.org/).
 
 **Post-Meeting Social:** After the meeting, we'll be continuing the conversation (casually!) at the **Cocktail Garden and Kitchen**, at 64 Franklin Street. Everyone is welcome to join!
 
@@ -19,7 +19,7 @@ We will be starting with a presentation from Nathan Lewis about the **Vernon Con
 
 **Bus Benches:** Speaking of bus benches, for anyone interested, we’ll be meeting at 5:30 PM the second Monday of each month at Technocopia to build them. Our next bus bench meeting will be **February 9th**.
 
-**Vernon Connected:** The planning effort regarding the future of the Vernon Street Bridge continues. If you’ve ever encountered an issue with the transportation network in this area, you can add a marker to [this interactive map](https://www.google.com/search?q=%23 "null") to bring the project team’s attention to it.
+**Vernon Connected:** The planning effort regarding the future of the Vernon Street Bridge continues. If you’ve ever encountered an issue with the transportation network in this area, you can add a marker to [this interactive map](https://engagestantec.com/vernon-connected) to bring the project team’s attention to it.
 
 **Social Media Director:** We are currently looking for a volunteer for a **Social Media Director**. This volunteer would join the leadership team and assist in running our Instagram, Bluesky, Facebook, and more. Please reach out to strongtowns.worcester@gmail.com for more information or if you have any interest in other leadership roles over the next year!
 
