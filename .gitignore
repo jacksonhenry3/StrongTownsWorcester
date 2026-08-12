@@ -1,1 +1,9 @@
 node_modules
+.direnv
+
+# build output -- the site is built and published by .github/workflows/astro.yml
+dist
+docs
+
+# astro's generated content cache
+.astro
