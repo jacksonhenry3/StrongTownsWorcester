@@ -2,7 +2,7 @@
 title: "December Update: GIS Recap and 2026 Planning"
 description: "A recap of our GIS meeting, planning for our 2026 priority campaigns, and a look back at Cranksgiving."
 publishDate: "01 Dec 2025"
-image: "https://upload.wikimedia.org/wikipedia/commons/0/04/Bankroft_Tower.jpg"
+image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Bancroft_Tower%2C_2009.jpg/1280px-Bancroft_Tower%2C_2009.jpg"
 ---
 
 # December Update: GIS Recap & 2026 Planning
