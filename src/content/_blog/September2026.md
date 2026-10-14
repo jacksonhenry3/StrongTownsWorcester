@@ -13,7 +13,7 @@ Hello, Worcester Strong Towners! Our next **general meeting is Saturday, Septemb
 
 **Question 7:** November’s ballot Question 7 is **Legalize Starter Homes**! This is an initiative to update zoning laws across Massachusetts to allow single-family homes on smaller lots than may be the case in most communities. [See this Ballotpedia page for a quick rundown on what a “YES” and a “NO” vote would mean](https://ballotpedia.org/Massachusetts_Question_7,_Limit_on_Required_Lot_Size_for_Single-Family_Homes_Initiative_(2026)).
 
-**Door Knocking:** To participate in door knocking for this question, please RSVP for [October 3rd at this link](https://action.abundanthousingma.org/a/legalize-starter-homes-knock-across-worcester-103), and / or [October 17th at this one](https://action.abundanthousingma.org/a/lsh-knock-across-worcester-1017)!
+**Door Knocking:** To participate in door knocking for this question, please RSVP for the [October 17th knock](https://action.abundanthousingma.org/a/lsh-knock-across-worcester-1017)!
 
 **Learn More:** [Check out the official Strong Towns podcast with an interview](https://www.strongtowns.org/podcasts/2026-02-10-andrew-mikula-bottom-up-shorts) with Andrew Mikula from the Legalize Starter Homes initiative.
 
