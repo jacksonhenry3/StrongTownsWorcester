@@ -1,0 +1,485 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Question 7: Worcester says Yes to Starter Homes | Strong Towns Worcester">
+<style is:global>
+:root{--ink:#1f2937;--muted:#6b7280;--accent:#2d2473;--yes:#E17C05;--no:#55AB9E;--blue:#2171b5;--card:#fff}
+*{box-sizing:border-box}
+html{color-scheme:light;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.q7map{position:sticky;top:0;height:100dvh;background:#f9fafb;z-index:0}
+#map{position:absolute;inset:0;background:#f9fafb;z-index:0}
+.leaflet-container{background:#f9fafb;font:inherit}
+.leaflet-pane.fade{visibility:hidden;transition:opacity .7s ease,visibility 0s linear .7s}
+.leaflet-pane.fade.on{visibility:visible;transition:opacity .7s ease,visibility 0s}
+#progress{position:absolute;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:2000}
+.story{position:relative;z-index:1000;width:40%;margin-top:-100dvh;pointer-events:none}
+.step{min-height:100vh;display:flex;align-items:center;padding:6vh 28px}
+.card{pointer-events:auto;background:var(--card);border-radius:12px;padding:26px 28px;box-shadow:0 6px 30px rgba(0,0,0,.14);width:100%;opacity:.55;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.step.active .card{opacity:1;transform:none}
+.kicker{font:700 12px/1 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+h1,h2{line-height:1.12;margin:0 0 12px}
+h1{font-size:2.35rem}h2{font-size:1.65rem}
+p{margin:0 0 12px}
+.big{font:800 4.6rem/1 system-ui,sans-serif;color:var(--yes);margin:4px 0 2px;letter-spacing:-.02em}
+.big.blue{color:var(--blue);font-size:3.6rem}
+.big.orange{color:#ea580c;font-size:3.6rem}
+.cap{margin:0 0 12px}
+blockquote.petition{margin:14px 0;padding:10px 14px;border-left:4px solid var(--accent);background:#eef0f8;font-size:1.02rem;line-height:1.45;border-radius:0 8px 8px 0}
+blockquote.petition cite{display:block;margin-bottom:6px;font:600 .78rem system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-style:normal}
+.hint{margin-top:16px;color:var(--muted);font-size:.9rem}
+ul.benefits{list-style:none;padding:0;margin:8px 0 0}
+ul.benefits li{display:flex;gap:12px;margin:0 0 14px}
+ul.benefits .dot{flex:0 0 34px;height:34px;border-radius:50%;background:#fdf1e6;border:2px solid var(--yes);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent)}
+ul.benefits b{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;background:#f7f7f7;border:1px solid #e1e1e1;border-radius:999px;padding:3px 10px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid #0003}
+.ramp{display:flex;gap:0;margin:8px 0 2px;border-radius:4px;overflow:hidden;border:1px solid #bbb}
+.ramp span{flex:1;height:14px}
+.ramplab{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 6px}
+.pair figure{margin:0;background:#f8f6f0;border:1px solid #e6e1d4;border-radius:10px;padding:8px 8px 6px}
+.pair svg{width:100%;height:auto;display:block}
+.pair figcaption{font-size:.82rem;line-height:1.3;margin-top:4px}
+.pair figcaption b{display:block}
+.fine{font-size:.82rem;color:var(--muted)}
+.find{margin-top:10px;display:flex;gap:6px}
+.find input{flex:1;min-width:0;padding:11px 12px;border:1.5px solid #bbb;border-radius:8px;font:inherit}
+#sres{margin:6px 0 0;padding:0;list-style:none;border:1px solid #ddd;border-radius:8px;overflow:hidden}
+#sres li{padding:9px 12px;border-bottom:1px solid #eee;cursor:pointer;font-size:.95rem}
+#sres li:hover,#sres li.on{background:#eef4fa}
+#answer{margin-top:10px;padding:12px 14px;border-radius:10px;background:#eef4fa;border-left:4px solid var(--blue);font-size:.96rem}
+#answer.warm{background:#fff1e3;border-color:var(--yes)}
+#answer.red{background:#fde8e8;border-color:#991b1b}
+#answer.none{background:#f3f3f3;border-color:#999}
+.cta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.btn{display:inline-block;padding:10px 14px;border-radius:8px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;font-size:.95rem}
+.btn.alt{background:#fff;color:var(--accent);border:1.5px solid var(--accent)}
+a{color:var(--accent)}
+.gap{display:none}
+#maptop{position:absolute;top:14px;left:calc(40% + 14px);right:64px;z-index:2500;display:flex;gap:8px;align-items:flex-start;pointer-events:none}
+#maptop>*{pointer-events:auto}
+body.explore #maptop{left:14px}
+#legend{position:relative;flex:0 0 auto;font-size:.84rem}
+#legend .lh{display:flex;align-items:center;gap:8px;height:42px;padding:0 14px;border:0;border-radius:8px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.2);font:600 .9rem system-ui,sans-serif;color:var(--ink);cursor:pointer;white-space:nowrap}
+#legend .lb{position:absolute;top:calc(100% + 6px);left:0;width:310px;max-width:calc(100vw - 28px);padding:8px 12px 10px;max-height:calc(100vh - 140px);overflow:auto;background:rgba(255,255,255,.97);border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.22)}
+#legend.closed .lb{display:none}
+#msearch{position:relative;flex:1 1 auto;min-width:0;max-width:380px}
+#msearch input{width:100%;height:42px;padding:0 12px 0 38px;border:0;border-radius:8px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E") no-repeat 13px center;box-shadow:0 2px 12px rgba(0,0,0,.2);font:.9rem system-ui,sans-serif;color:var(--ink)}
+#msearch input::placeholder{color:#777}
+#msearch input:focus{outline:2px solid var(--accent);outline-offset:0}
+#mres{position:absolute;top:48px;left:0;right:0;margin:0;padding:0;list-style:none;background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.22);overflow:hidden}
+#mmsg{position:absolute;top:48px;left:0;right:0;padding:9px 12px;background:#fff;border-radius:8px;font-size:.86rem;color:#444;box-shadow:0 2px 12px rgba(0,0,0,.22)}
+#legend label{display:flex;align-items:flex-start;gap:8px;margin:7px 0;cursor:pointer;line-height:1.3}
+#legend input{margin-top:2px;flex:0 0 auto}
+#legend .sub{display:flex;flex-wrap:wrap;gap:4px 12px;margin:2px 0 0;font-size:.78rem;color:var(--muted)}
+#legend .sub span{display:inline-flex;align-items:center;gap:4px}
+#legend .sw{width:11px;height:11px}
+#legend details{margin:6px 0}#legend summary{cursor:pointer;font-weight:600;padding:2px 0}#legend .note{font-size:.76rem;color:var(--muted);margin:4px 0 0}
+.pp{border-collapse:collapse;margin:4px 0}.pp td{padding:1px 10px 1px 0;vertical-align:top}.pp td:last-child{text-align:right;font-weight:600}
+.pn{margin-top:6px;padding:6px 8px;border-radius:6px;background:#fff1e3;border-left:3px solid #E17C05;font-size:.85rem}
+.pn.red{background:#fde8e8;border-color:#991b1b}
+.srcs{margin:8px 0 0;padding-left:18px;font-size:.84rem;color:var(--muted)}.srcs li{margin:3px 0}
+#mres li{padding:9px 12px;border-bottom:1px solid #eee;cursor:pointer;font-size:.92rem}
+#mres li:hover{background:#eef4fa}
+#recenter{position:absolute;left:calc(40% + 14px);bottom:16px;z-index:2400;padding:9px 14px;border:0;border-radius:999px;background:#fff;color:var(--accent);font:600 14px system-ui,sans-serif;box-shadow:0 2px 12px rgba(0,0,0,.25);cursor:pointer}
+#recenter[hidden]{display:none}
+#explore.blink{animation:exring .55s ease-out 2}
+@keyframes exring{0%{box-shadow:0 0 0 0 rgba(163,65,0,.7),0 3px 14px rgba(0,0,0,.3)}100%{box-shadow:0 0 0 16px rgba(163,65,0,0),0 3px 14px rgba(0,0,0,.3)}}
+@media (prefers-reduced-motion:reduce){#explore.blink{animation:none;outline:4px solid #fff;outline-offset:2px}}
+#explore{display:block;position:absolute;right:14px;bottom:16px;z-index:3000;padding:10px 16px;border-radius:999px;border:0;background:var(--accent);color:#fff;font:600 14px system-ui,sans-serif;box-shadow:0 3px 14px rgba(0,0,0,.3);cursor:pointer}
+body.explore{overflow:hidden}
+body.explore .story{opacity:0;pointer-events:none}
+body.explore .story *{pointer-events:none!important}
+.leaflet-tooltip{font:14px/1.35 system-ui,sans-serif}
+/* ---------- phone / narrow ---------- */
+@media (max-width:899px){
+  body{font-size:16px}
+  #msearch input,.find input{font-size:16px}
+  #map.pass{pointer-events:none}
+  #map.pass .leaflet-popup{pointer-events:auto}
+  body.explore #map{pointer-events:auto}
+  .story{width:100%;transition:opacity .3s}
+  .step{min-height:0;display:block;padding:0 14px}
+  .card{background:rgba(255,255,255,.88);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);padding:18px 18px;opacity:1;transform:none;box-shadow:0 4px 20px rgba(0,0,0,.18)}
+  .gap{display:block;height:80vh}
+  .gap.first{height:30vh}
+  h1{font-size:1.85rem}h2{font-size:1.4rem}
+  .big{font-size:3.6rem}.big.blue,.big.orange{font-size:3rem}
+  #maptop{left:10px;top:10px;right:56px;gap:6px}
+  body.explore #maptop{left:10px}
+  #legend .lb{width:calc(100vw - 20px);max-height:calc(100vh - 120px)}
+  #legend .lh{padding:0 11px}
+  #recenter{left:12px;bottom:14px;padding:11px 14px}
+  #explore{right:12px;bottom:14px;padding:11px 16px;font-size:15px}
+  
+}
+</style>
+
+<div class="q7 relative">
+<div class="q7map">
+<div id="map"></div>
+<div id="progress"></div>
+<div id="maptop">
+<div id="legend">
+  <button class="lh" id="lgt" type="button" aria-expanded="true" aria-controls="lgb"><span>Map layers</span><span id="lgc">&#9662;</span></button>
+  <div class="lb" id="lgb">
+    <label><input type="checkbox" id="lg_pZones" checked><span>Zoning districts<span class="sub"><span><span class="sw" style="background:#c2570c"></span>RS-10 (10,000 sq ft)</span><span><span class="sw" style="background:#e6ab02"></span>RS-7, RL-7 (7,000 sq ft)</span></span></span></label>
+    <label><input type="checkbox" id="lg_pOpp" checked><span>Lots that could split<span class="sub"><span><span class="sw" style="background:#bdd7e7"></span><span class="sw" style="background:#6baed6"></span><span class="sw" style="background:#2171b5"></span><span class="sw" style="background:#08306b"></span>darker = more additional lots unlocked</span></span></span></label>
+    
+    <label><input type="checkbox" id="lg_pExistB" checked><span><span class="sw" style="background:#f97316"></span> Homes below the district minimum</span></label>
+    <label><input type="checkbox" id="lg_pExistU" checked><span><span class="sw" style="background:#991b1b"></span> Homes under 5,000 sq ft<span class="sub">A 5,000 sq ft minimum would not reach these</span></span></label>
+    <details id="votebox" hidden open><summary>Question 7 vote by precinct</summary>
+      <label><input type="checkbox" id="lg_pVoteY"><span><span class="sw" style="background:#2e9e5b"></span> Precincts that voted Yes<span class="sub">Fill deepens with the margin. Hover or tap for counts.</span></span></label>
+      <label><input type="checkbox" id="lg_pVoteN"><span><span class="sw" style="background:#7b3fa0"></span> Precincts that voted No</span></label>
+      <p class="note">Unofficial results, Nov. 3, 2026. Shown only with the voting option on.</p>
+    </details>
+    <details id="extra"><summary>Extra data</summary>
+      <label><input type="checkbox" id="lg_pUnch"><span><span class="sw" style="background:rgba(120,140,170,.18);border:1.5px dashed #6f87a6"></span> Unchanged splittable lots<span class="sub">Today&rsquo;s rules already allow the same number of lots as 5,000 sq ft would, so this change would not affect them.</span></span></label>
+      <label><input type="checkbox" id="lg_pErr"><span><span class="sw" style="background:rgba(130,130,130,.2);border:1.5px dashed #777"></span> Potential data issues<span class="sub">Lots where the Community Scale Question 7 data does not match the assessor record. Not counted in any total.</span></span></label>
+    </details>
+    <p class="note">The story turns layers on as you scroll. Use the boxes to change them. Click a lot for details. Zoom with the + and - buttons, a double-click, or Ctrl/&#8984; and scroll.</p>
+  </div>
+</div>
+<div id="msearch"><input id="mq" type="search" placeholder="Search an address, e.g. 102 Clark St" aria-label="Search the map by address" autocomplete="off"><ul id="mres" hidden></ul><div id="mmsg" hidden></div></div>
+</div>
+<button id="recenter" type="button" hidden>Back to story view</button>
+<button id="explore" type="button">Full screen map</button>
+</div>
+
+<div class="story" id="story">
+  <div class="gap first"></div>
+
+  <section class="step" data-key="cover">
+    <div class="card">
+      <p class="kicker">Worcester &middot; Question 7</p>
+      <h1>Worcester Wants More Homes.</h1>
+      <div class="big">59.1%</div>
+      <p class="cap">26,691 Worcester voters approved Question 7.</p>
+      <p><a href="https://www.legalizestarterhomes.com/" target="_blank" rel="noopener">Question 7 - Legalize Starter Homes</a> asked whether a single-family home could be built on a lot as small as 5,000 square feet with 50 feet of frontage (i.e. road access). Statewide, it fell short.</p>
+      <p><b>If Worcester voted in favor, why not pass it ourselves?</b></p>
+      <p class="hint">Scroll to see what this would change &darr;</p>
+    </div>
+  </section>
+  <div class="gap"></div>
+  <section class="step" data-key="benefits">
+    <div class="card">
+      <p class="kicker">Why it makes sense</p>
+      <h2>Potential Benefits:</h2>
+      <ul class="benefits">
+        <li><span class="dot">1</span><span><b>Starter Homes for Families</b>Large lots are more expensive, which boxes out young families from owning homes. Allowing smaller lots makes it possible to build cheaper homes.</span></li>
+        <li><span class="dot">2</span><span><b>Gentle Growth</b>One home at a time, on streets that already exist. Yard and spacing rules stay as they are, so neighborhoods keep their space.</span></li>
+        <li><span class="dot">3</span><span><b>Less Bureaucracy</b>When the rules fit the homes that already exist, fewer owners have to ask the Zoning Board for an exception. That saves planning staff and residents time.</span></li>
+        
+      </ul>
+    </div>
+  </section>
+  <div class="gap"></div>
+  <section class="step" data-key="where">
+    <div class="card">
+      <p class="kicker">Where it would apply</p>
+      <h2>Citywide Large Lot Requirements</h2>
+      <p>Today, three residential zone types require more than 5,000 square feet for a single-family home. The map shows these areas extend all across the city:</p>
+      <div class="chips">
+        <span class="chip"><span class="sw" style="background:#c2570c"></span>RS-10: 10,000 sq ft</span>
+        <span class="chip"><span class="sw" style="background:#e6ab02"></span>RS-7 and RL-7: 7,000 sq ft</span>
+      </div>
+      <p>Business, industrial and other districts aren&rsquo;t affected by the petitioned change, and neither is RG-5, which already allows 5,000 sq ft lots.</p>
+    </div>
+  </section>
+  <div class="gap"></div>
+  <section class="step" data-key="everything">
+    <div class="card">
+      <p class="kicker">Existing Conditions</p>
+      <h2>Our Neighborhoods Already Have Small Lots</h2>
+      <div class="big orange">3,937</div>
+      <p class="cap">existing homes already stand on lots smaller than today&rsquo;s minimum, <span class="chip" style="padding:0 8px"><span class="sw" style="background:#f97316"></span>orange</span>. Another <b>677</b> are even smaller than 5,000 sq ft, <span class="chip" style="padding:0 8px"><span class="sw" style="background:#991b1b"></span>dark red</span>, which even our petitioned change would not bring into compliance.</p>
+      <p>Most of these homes were built decades ago, long before today&rsquo;s lot-size rules. When zoning changed, they ended up out of compliance. They&rsquo;re allowed to stay (&ldquo;grandfathered in&rdquo;), but that can make life harder for the people who live in them. Repairs, renovations and rebuilding the home they already live in can mean a long review. <b>Our laws make it hard to rebuild the types of homes that exist across Worcester today.</b></p>
+    </div>
+  </section>
+  <div class="gap"></div>
+  <section class="step" data-key="which">
+    <div class="card">
+      <p class="kicker">Impacts</p>
+      <h2>Where Could New Homes Be Built?</h2>
+      <div class="big blue">3,991</div>
+      <p class="cap">potential new 5,000 square ft lots across Worcester</p>
+      <p>These are the lots with enough area and street frontage to make more lots than today&rsquo;s rules allow. The darker the blue, the more lots it could become. </p>
+      <div class="ramp"><span style="background:#bdd7e7"></span><span style="background:#6baed6"></span><span style="background:#2171b5"></span><span style="background:#08306b"></span></div>
+      <div class="ramplab"><span>+1 lot</span><span>2</span><span>3</span><span>4 or more</span></div>
+      <p><b>Most lots that could split won&rsquo;t.</b> Splitting is time consuming, and many owners will never want to. If you are curious, look at the legend for extra data to see lots that could split today that aren&rsquo;t! <b>Historic, environmental and other protections continue to apply to new development</b>, so we keep building right while we build what we need. We didn&rsquo;t look at other limits, like where a house sits on its lot, wetlands, slopes or easements, which could make many of these lots impractical to split in reality.</p>
+      <p>For those that do want to split, <b>why are we preventing homeowners from building housing</b>? Worcester needs more homes for young families to move into. We should give owners here the freedom to solve that.</p>
+      <p class="fine" style="margin-top:8px">Potential only. Counts are what the rule would allow, not what will be built. Lot data from <a href="https://snap.communityscale.io/question-7-lots/" target="_blank" rel="noopener">Community Scale&rsquo;s Question 7 map</a>.</p>
+    </div>
+  </section>
+  <div class="gap"></div>
+  <section class="step" data-key="burncoat">
+    <div class="card">
+      <p class="kicker">Zoom in: Burncoat</p>
+      <h2>Big Lots and Small Lots, Side by Side</h2>
+      <p>On the same streets, large lots that could split sit next to homes already on smaller lots. The neighborhood already works both ways, why aren&rsquo;t these historic lot sizes allowed today?</p>
+      <p><b>Is your house below the minimum lot size?</b> Look up your address.</p>
+      <div class="find"><input id="q" type="search" placeholder="Start typing, e.g. 102 Clark St" aria-label="Look up an address" autocomplete="off"></div>
+      <ul id="sres" hidden></ul>
+      <div id="answer" hidden></div>
+      <p class="fine" style="margin-top:12px">Homes below the minimum can face lengthy reviews just to renovate or repair, because they don&rsquo;t match today&rsquo;s zoning.</p>
+    </div>
+  </section>
+  <div class="gap"></div>
+  <section class="step" data-key="explain">
+    <div class="card">
+      <p class="kicker">What it enables</p>
+      <h2>Small Scale Flexibility</h2>
+      <p>This is gentle growth, not high-rises. One house at a time, on streets that already exist, with the same yards and setbacks. A homeowner with a big lot could split it and build a house, which gives neighbors somewhere new to live.</p>
+      <p>Owners could sell, or <b>create homes for their kids to give them a head start</b>. An ADU (<a href="https://www.worcesterma.gov/planning-regulatory/planning-initiatives/accessory-dwelling-units" target="_blank" rel="noopener">Accessory Dwelling Unit</a>) is different: it stays on the same lot, must be much smaller, and can only be rented.</p>
+      <div class="pair">
+        <figure>
+          <svg viewBox="0 0 220 150" role="img" aria-label="A lot split into two lots, each with its own house">
+            <rect x="8" y="12" width="204" height="108" rx="4" fill="#e8f1df" stroke="#9db88a"/>
+            <line x1="110" y1="12" x2="110" y2="120" stroke="#33691e" stroke-width="2.5" stroke-dasharray="6 4"/>
+            <g><rect x="30" y="52" width="56" height="46" fill="#9ecae1" stroke="#2171b5"/><polygon points="26,52 58,28 90,52" fill="#2171b5"/></g>
+            <g><rect x="134" y="52" width="56" height="46" fill="#fdd0a2" stroke="#E17C05"/><polygon points="130,52 162,28 194,52" fill="#E17C05"/></g>
+            <rect x="8" y="124" width="204" height="14" fill="#cfcfcf"/>
+            <text x="110" y="135" font-size="9" text-anchor="middle" fill="#555" font-family="system-ui">street</text>
+            <text x="162" y="112" font-size="9" text-anchor="middle" fill="#a34100" font-family="system-ui" font-weight="700">new home</text>
+          </svg>
+          <figcaption><b>Split the lot</b>Two lots, two owners. The new home can be owned, sold or passed on.</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 220 150" role="img" aria-label="One lot with a house and a small accessory unit behind it">
+            <rect x="8" y="12" width="204" height="108" rx="4" fill="#e8f1df" stroke="#9db88a"/>
+            <g><rect x="24" y="60" width="78" height="46" fill="#9ecae1" stroke="#2171b5"/><polygon points="20,60 63,32 106,60" fill="#2171b5"/></g>
+            <g><rect x="146" y="30" width="38" height="26" fill="#d9d9d9" stroke="#777"/><polygon points="143,30 165,16 187,30" fill="#777"/></g>
+            <rect x="8" y="124" width="204" height="14" fill="#cfcfcf"/>
+            <text x="110" y="135" font-size="9" text-anchor="middle" fill="#555" font-family="system-ui">street</text>
+            <text x="165" y="70" font-size="9" text-anchor="middle" fill="#555" font-family="system-ui" font-weight="700">ADU</text>
+          </svg>
+          <figcaption><b>Add an ADU</b>One lot, one owner. The small unit stays on the lot and can only be rented.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <div class="gap"></div>
+
+  <section class="step" data-key="end">
+    <div class="card">
+      <p class="kicker">The bottom line</p>
+      <h2>Publicly Supported and Right for Worcester</h2>
+      <p>We believe in a future for Worcester with more homes in the neighborhoods that already exist. <b>Pass this common-sense change the public already voted for.</b></p>
+      <p>This is a small change to let Worcester slowly grow housing where it is needed. It means <b>gentle growth</b>: one more home at a time on streets that already exist, with yard sizes and space between that match their neighbors. It gives <b>homeowners flexibility</b> to use their own land for what they need, including more room for their family. And it means <b>less bureaucracy</b>, because owners will not need exceptions from the Planning and Zoning Boards for grandfathered existing homes, which saves planning staff time and applicants&rsquo; time. <b>Let&rsquo;s make Worcester a place that welcomes more starter homes for future generations.</b></p>
+      <blockquote class="petition"><cite>Petition language:</cite>Adoption of a text amendment to the Zoning Ordinance establishing a 5,000 square foot minimum lot area and 50 feet minimum frontage for single-family dwellings in the RS-10, RS-7 and RL-7 residential districts, which currently require 10,000 and 7,000 square feet minimum lot size, in line with Question 7 on the November 3, 2026 ballot, which Worcester voters approved at a 59.1% rate.</blockquote>
+      <p class="fine" style="margin-bottom:2px"><b>Sources</b></p>
+      <ul class="srcs">
+        <li>Election results: <a href="https://www.worcesterma.gov/election-results/20261103.pdf" target="_blank" rel="noopener">City of Worcester unofficial election results, Nov. 3, 2026</a>.</li>
+        <li>Lots that could split: <a href="https://snap.communityscale.io/question-7-lots/" target="_blank" rel="noopener">Community Scale, Question 7 Opportunities</a>.</li>
+        <li>Addresses, lot sizes and year built: <a href="https://www.mass.gov/info-details/massgis-data-property-tax-parcels" target="_blank" rel="noopener">MassGIS Property Tax Parcels</a> (Level 3 assessor parcels, FY2026).</li>
+        <li>Zoning rules and districts: <a href="https://www.worcesterma.gov/planning-regulatory/zoning-ordinance-map" target="_blank" rel="noopener">City of Worcester Zoning Ordinance &amp; Map</a>, including <a href="https://www.worcesterma.gov/planning-regulatory/document-center/zoning-ord.pdf" target="_blank" rel="noopener">Table 4.2, Permitted Dimensions by District</a>.</li>
+        <li>Basemap: <a href="https://www.usgs.gov/programs/national-geospatial-program/national-map" target="_blank" rel="noopener">USGS The National Map</a>.</li>
+      </ul>
+      <p class="fine">Counts are potential and descriptive, not forecasts.</p>
+    </div>
+  </section>
+  <div class="gap" style="height:40vh"></div>
+</div>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" is:inline></script>
+<script src="/q7/data/story-data.js" is:inline></script>
+<script is:inline>
+(function(){
+var DEBUG=/[?&]debug=1/.test(location.search),dbgEl=null,dbgLines=[];
+function dbg(m){if(!DEBUG)return;try{dbgLines.push(((performance.now()/1000)|0)+'s '+m);if(dbgLines.length>14)dbgLines.shift();if(!dbgEl){dbgEl=document.createElement('pre');dbgEl.style.cssText='position:fixed;left:6px;right:6px;top:60px;z-index:9999;margin:0;padding:6px 8px;background:rgba(0,0,0,.82);color:#9f9;font:10px/1.35 ui-monospace,Menlo,monospace;max-height:42vh;overflow:hidden;pointer-events:none;white-space:pre-wrap;border-radius:6px';document.body.appendChild(dbgEl)}dbgEl.textContent=dbgLines.join('\n')}catch(e){}}
+if(DEBUG){window.addEventListener('error',function(e){dbg('ERROR '+e.message+' @'+(e.lineno||'?'))});window.addEventListener('unhandledrejection',function(e){dbg('REJECT '+(e.reason&&e.reason.message||e.reason))});dbg('UA '+navigator.userAgent.replace(/\(.*?\)/,function(m){return m.slice(0,40)}));dbg('IO='+('IntersectionObserver' in window)+' size='+innerWidth+'x'+innerHeight+' dpr='+devicePixelRatio)}
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var mq=window.matchMedia('(max-width: 899px)');
+var CITY=[[42.2100,-71.8840],[42.3412,-71.7312]];
+var BURN=[42.3090,-71.7910];
+L.Popup.mergeOptions({autoPanPaddingTopLeft:[12,70],autoPanPaddingBottomRight:[12,12]});
+var map=L.map('map',{zoomControl:false,attributionControl:true,zoomSnap:0.25,scrollWheelZoom:false,doubleClickZoom:true});
+L.control.zoom({position:'topright'}).addTo(map);
+map.attributionControl.setPrefix(false);
+map.getContainer().addEventListener('wheel',function(e){if(map.scrollWheelZoom.enabled()||!(e.ctrlKey||e.metaKey))return;e.preventDefault();var d=-e.deltaY*(e.deltaMode===1?0.05:0.01);map.setZoomAround(map.mouseEventToContainerPoint(e),Math.max(map.getMinZoom(),Math.min(18,map.getZoom()+d)),{animate:false})},{passive:false});
+function applyPass(){var locked=mq.matches&&!document.body.classList.contains('explore');document.getElementById('map').classList.toggle('pass',locked);
+  ['dragging','touchZoom','doubleClickZoom','boxZoom','tap'].forEach(function(k){if(map[k])map[k][locked?'disable':'enable']()})}
+applyPass();
+L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,opacity:.42,attribution:'Basemap: USGS The National Map'}).addTo(map);
+
+function pane(name,z){var p=map.createPane(name);p.style.zIndex=z;p.classList.add('fade');p.style.opacity=0;return L.svg({pane:name,padding:.4})}
+var rZones=pane('pZones',420),rExB=pane('pExistB',440),rExU=pane('pExistU',445),rUn=pane('pUnch',446),rErr=pane('pErr',447),rOpp=pane('pOpp',450),rVY=pane('pVoteY',415),rVN=pane('pVoteN',416);
+
+function n(x){return x.toLocaleString()}
+var ZC={'RS-10':'#c2570c','RS-7':'#e6ab02','RL-7':'#e6ab02'};
+function zstyle(hi){return function(f){var z=f.properties.z,c=ZC[z];
+  if(hi==='neutral') return {color:'#fff',weight:.8,fillColor:'#e2ddd0',fillOpacity:.6};
+  if(hi&&c) return {color:'#fff',weight:.8,fillColor:c,fillOpacity:.8};
+  return {color:'#fff',weight:.8,fillColor:c&&!hi?c:'#e2ddd0',fillOpacity:hi?.55:(c?.28:.5)}}}
+var zonesHi=L.geoJSON(STORY.zones,{renderer:rZones,style:zstyle(true),onEachFeature:function(f,l){var z=f.properties.z;if(ZC[z])l.bindTooltip(z+': '+(z==='RS-10'?'10,000':'7,000')+' sq ft minimum today',{sticky:true})}}).addTo(map);
+var zonesLo=L.geoJSON(STORY.zones,{renderer:rZones,style:zstyle(false),interactive:false});
+var zonesNeutral=L.geoJSON(STORY.zones,{renderer:rZones,style:zstyle('neutral'),interactive:false});
+
+var ramp=['#bdd7e7','#6baed6','#2171b5','#08306b'];
+var oppL={},exL={};
+var opp=L.geoJSON(STORY.opp,{renderer:rOpp,style:function(f){var k=Math.max(1,Math.min(4,f.properties.u||1));return {color:'#1b3a57',weight:.4,fillColor:ramp[k-1],fillOpacity:.92}},
+  onEachFeature:function(f,l){var p=f.properties;l.bindPopup('<b>'+p.a+'</b><br>Zone '+p.z+'<table class="pp"><tr><td>Lot area</td><td>'+n(p.s)+' sq ft</td></tr><tr><td>Frontage</td><td>'+n(p.f)+' ft</td></tr><tr><td>Lots possible today (est.)</td><td>'+p.q+'</td></tr><tr><td>Lots possible at 5,000 sq ft</td><td>'+p.p+'</td></tr><tr><td>New lots unlocked</td><td>'+p.u+'</td></tr></table><div class="fine">Potential only: buildings, wetlands and easements are not considered.</div>')}}).addTo(map);
+function unchPopup(p){return '<b>'+p.a+'</b><br>Zone '+p.z+'<table class="pp"><tr><td>Lot area</td><td>'+n(p.s)+' sq ft</td></tr><tr><td>Frontage</td><td>'+n(p.f)+' ft</td></tr><tr><td>Lots possible today (est.)</td><td>'+p.q+'</td></tr><tr><td>Lots possible at 5,000 sq ft</td><td>'+p.p+'</td></tr><tr><td>New lots unlocked</td><td>0</td></tr></table><div class="pn" style="background:#eef2f7;border-color:#6f87a6">Unchanged: today&rsquo;s rules already allow the same number of lots, so this change would not affect this lot.</div>'}
+function errPopup(p){return '<b>'+p.a+'</b><br>Zone '+p.z+'<div class="pn" style="background:#f1f1f1;border-color:#999"><b>Potential data issue.</b> The Community Scale Question 7 Opportunity Data shows '+n(p.s)+' sq ft, which does not match the assessor record (for example a multi-part parcel). Counts for this lot are not included in the totals.</div>'}
+function mkUn(isErr,rd){return L.geoJSON({type:'FeatureCollection',features:STORY.unch.features.filter(function(f){return !!f.properties.d===isErr})},{renderer:rd,style:function(){return isErr?{color:'#777',weight:1,dashArray:'2 3',fillColor:'#888',fillOpacity:.14}:{color:'#6f87a6',weight:1,dashArray:'3 3',fillColor:'#8da2bd',fillOpacity:.12}},onEachFeature:function(f,l){l.bindPopup(isErr?errPopup(f.properties):unchPopup(f.properties))}}).addTo(map)}
+var unch=mkUn(false,rUn),errL=mkUn(true,rErr);
+function existPopup(p){var h='<b>'+p.a+'</b><br>Zone '+p.z+' (minimum '+n(p.m)+' sq ft)<table class="pp"><tr><td>Lot area</td><td>'+n(p.s)+' sq ft</td></tr><tr><td>Year built</td><td>'+(p.y||'n/a')+'</td></tr><tr><td>Style</td><td>'+(p.t||'n/a')+'</td></tr></table>';
+  return h+(p.b==='u'?'<div class="pn red">Smaller than 5,000 sq ft, so a 5,000 sq ft minimum would not apply to this lot.</div>':'<div class="pn">Smaller than the district minimum by '+n(p.m-p.s)+' sq ft. At 5,000 sq ft this lot would meet the minimum on lot area (frontage not tested).</div>')}
+function mkExist(b,rd,col){return L.geoJSON({type:'FeatureCollection',features:STORY.exist.features.filter(function(f){return f.properties.b===b})},{renderer:rd,style:function(){return {color:'#4a2a0a',weight:.4,fillColor:col,fillOpacity:.92}},onEachFeature:function(f,l){l.bindPopup(existPopup(f.properties))}}).addTo(map)}
+var existB=mkExist('b',rExB,'#f97316'),existU=mkExist('u',rExU,'#991b1b');
+
+/* ---------- dots when lots are too small to draw as shapes ---------- */
+var DOTS=1;
+var MIN_PX=2;
+function centroidOf(g){var ring=g.type==='MultiPolygon'?g.coordinates[0][0]:g.coordinates[0],a=0,cx=0,cy=0,i,x0,y0,x1,y1,f;
+  for(i=0;i<ring.length-1;i++){x0=ring[i][0];y0=ring[i][1];x1=ring[i+1][0];y1=ring[i+1][1];f=x0*y1-x1*y0;a+=f;cx+=(x0+x1)*f;cy+=(y0+y1)*f}
+  if(Math.abs(a)<1e-14){return [ring[0][1],ring[0][0]]}return [cy/(3*a),cx/(3*a)]}
+function narrowWidth(g){var polys=g.type==='MultiPolygon'?g.coordinates:[g.coordinates],kx=111320*Math.cos(42.27*Math.PI/180),ky=110574,pts=[],i,j,k;
+  polys.forEach(function(pl){pl[0].forEach(function(c){pts.push([c[0]*kx,c[1]*ky])})});
+  pts.sort(function(a,b){return a[0]-b[0]||a[1]-b[1]});
+  function cr(o,a,b){return (a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0])}
+  var lo=[],up=[];for(i=0;i<pts.length;i++){while(lo.length>=2&&cr(lo[lo.length-2],lo[lo.length-1],pts[i])<=0)lo.pop();lo.push(pts[i])}
+  for(i=pts.length-1;i>=0;i--){while(up.length>=2&&cr(up[up.length-2],up[up.length-1],pts[i])<=0)up.pop();up.push(pts[i])}
+  var hull=lo.slice(0,-1).concat(up.slice(0,-1)),best=Infinity,n=hull.length;
+  for(i=0;i<n;i++){var a=hull[i],b=hull[(i+1)%n],dx=b[0]-a[0],dy=b[1]-a[1],L=Math.sqrt(dx*dx+dy*dy);if(!L)continue;var mn=Infinity,mx=-Infinity;
+    for(j=0;j<n;j++){k=(hull[j][0]-a[0])*(-dy/L)+(hull[j][1]-a[1])*(dx/L);if(k<mn)mn=k;if(k>mx)mx=k}
+    if(mx-mn<best)best=mx-mn}
+  return isFinite(best)?best:5}
+function dotRadius(extra){var z=map.getZoom();return Math.max(0.5,Math.min(2,.6+(z-10)*.5))+(extra||0)}
+var dotSets=[];
+function mkDots(polyLayer,rd,fillFn,opts){var grp=L.layerGroup(),items=[];
+  polyLayer.eachLayer(function(l){var p=l.feature.properties,fc=fillFn(p),st=polyLayer.options.style(l.feature),m=L.circleMarker(centroidOf(l.feature.geometry),{renderer:rd,radius:2.5,stroke:true,color:st.color,weight:st.weight,opacity:1,dashArray:st.dashArray,fillColor:fc.c,fillOpacity:opts.op||st.fillOpacity});
+    if(l.getPopup())m.bindPopup(l.getPopup().getContent());grp.addLayer(m);items.push({l:l,m:m,x:fc.x||0,side:narrowWidth(l.feature.geometry),shape:null})});
+  grp.addTo(map);dotSets.push({poly:polyLayer,grp:grp,items:items});return grp}
+var ramp2=['#9ecae1','#4292c6','#2171b5','#08306b'];
+if(DOTS){
+mkDots(opp,rOpp,function(p){var k=Math.max(1,Math.min(4,p.u||1));return {c:ramp2[k-1],x:(k-1)*.4}},{});
+mkDots(existB,rExB,function(){return {c:'#f97316'}},{});
+mkDots(existU,rExU,function(){return {c:'#991b1b'}},{});
+mkDots(unch,rUn,function(){return {c:'#6f87a6'}},{op:.45});
+mkDots(errL,rErr,function(){return {c:'#777'}},{op:.45});
+}
+var dotsReady=false;
+function syncDots(){if(!dotsReady)return;var z=map.getZoom(),mpp=156543.03*Math.cos(42.27*Math.PI/180)/Math.pow(2,z),r=dotRadius();
+  dotSets.forEach(function(s){s.items.forEach(function(it){var shape=it.side/mpp>=MIN_PX;
+    if(shape!==it.shape){it.shape=shape;if(shape){s.grp.removeLayer(it.m);s.poly.addLayer(it.l)}else{s.poly.removeLayer(it.l);s.grp.addLayer(it.m)}}
+    if(!shape)it.m.setRadius(r+it.x)})})}
+if(DOTS)map.on('zoomend',syncDots);
+
+function setPane(name,on){var cb=document.getElementById('lg_'+name);if(cb)cb.checked=on;var el=map.getPane(name);el.classList.toggle('on',on);if(on){el.style.pointerEvents='';el.style.opacity=1}else{el.style.opacity=0;el.style.pointerEvents='none'}}
+['pZones','pOpp','pExistB','pExistU','pUnch','pErr','pVoteY','pVoteN'].forEach(function(p){setPane(p,false)});
+var curZones=zonesHi;
+function useZones(g){if(g===curZones)return;map.removeLayer(curZones);map.addLayer(g);curZones=g}
+
+var STATE={
+ cover:{view:'city',on:['pZones'],zones:'neutral'},
+ benefits:{view:'city',on:['pZones'],zones:'neutral'},
+ where:{view:'city',on:['pZones'],zones:'hi'},
+ everything:{view:'city',on:['pZones','pExistB','pExistU'],zones:'lo'},
+ which:{view:'city',on:['pZones','pOpp'],zones:'lo'},
+ burncoat:{view:'burn',z:16,on:['pZones','pOpp','pExistB','pExistU'],zones:'lo'},
+ explain:{view:'burn',z:16,on:['pZones','pOpp','pExistB','pExistU'],zones:'lo'},
+ end:{view:'city',on:['pZones','pOpp','pExistB','pExistU'],zones:'lo'}
+};
+if(/[?&]voting=1/.test(location.search)){
+  document.getElementById('votebox').hidden=false;
+  var vs=document.createElement('script');vs.src='/q7/data/voting-data.js';
+  vs.onload=function(){
+    function shade(p,yes){var d=Math.abs(p.y/(p.y+p.n)-.5),t=Math.min(1,d/.293),c=yes?[46,158,91]:[123,63,160];return 'rgb('+c.map(function(v){return Math.round(255+(v-255)*(.25+.75*t))}).join(',')+')'}
+    function tipv(p){var t=p.y+p.n;return '<b>Ward '+p.l+'</b><br>Yes '+n(p.y)+' ('+(100*p.y/t).toFixed(1)+'%) &middot; No '+n(p.n)+' ('+(100*p.n/t).toFixed(1)+'%)<br>Blank '+n(p.b)+(p.x?'<br><small>'+p.x+'</small>':'')}
+    function netv(p){var d=p.y-p.n,y=d>0;return d===0?'<div style="margin-top:6px;font-weight:700">Tied</div>':'<div style="margin-top:6px;font-size:1.05rem;font-weight:700;color:'+(y?'#2e9e5b':'#7b3fa0')+'">Net '+(y?'+':'+')+n(Math.abs(d))+' '+(y?'Yes':'No')+'</div>'}
+    function mkV(yes,rd){return L.geoJSON({type:'FeatureCollection',features:VOTING.features.filter(function(f){return (f.properties.y>f.properties.n)===yes})},{renderer:rd,style:function(f){return {color:yes?'#2e9e5b':'#7b3fa0',weight:2.5,fillColor:shade(f.properties,yes),fillOpacity:.6}},onEachFeature:function(f,l){l.bindTooltip(tipv(f.properties)+netv(f.properties),{sticky:true});l.bindPopup(tipv(f.properties)+netv(f.properties))}}).addTo(map)}
+    mkV(true,rVY);mkV(false,rVN)};
+  document.head.appendChild(vs)}
+var manual=false,flying=false,flyTimer=null;
+function viewFor(s){flying=true;clearTimeout(flyTimer);flyTimer=setTimeout(function(){flying=false},reduce?150:2200);
+  if(s.view==='city')map.flyToBounds(CITY,{animate:!reduce,duration:1.5,padding:[10,10]});
+  else map.flyTo(BURN,s.z,{animate:!reduce,duration:1.5})}
+function setManual(m){manual=m;document.getElementById('recenter').hidden=!m||document.body.classList.contains('explore')}
+function go(key,force){
+  var s=STATE[key];if(!s)return;
+  dbg('go '+key+' view='+s.view+' manual='+manual+' force='+!!force);
+  ['pZones','pOpp','pExistB','pExistU'].forEach(function(p){setPane(p,s.on.indexOf(p)>=0)});
+  if(s.zones)useZones(s.zones==='hi'?zonesHi:(s.zones==='neutral'?zonesNeutral:zonesLo));
+  if(manual&&!force)return;
+  viewFor(s);
+}
+map.fitBounds(CITY);
+map.on('movestart',function(){if(!flying)setManual(true)});
+document.getElementById('recenter').addEventListener('click',function(){setManual(false);if(current)go(current,true)});
+
+if(DEBUG){window.__map=map;map.on('movestart',function(){dbg('movestart flying='+flying+' manual='+manual)});map.on('moveend',function(){var c=map.getCenter();dbg('moveend z='+map.getZoom().toFixed(2)+' '+c.lat.toFixed(4)+','+c.lng.toFixed(4))});setInterval(function(){var el=document.getElementById('dbgstat');if(!el){el=document.createElement('div');el.id='dbgstat';el.style.cssText='position:fixed;left:6px;top:36px;z-index:9999;background:#000c;color:#ff9;font:10px ui-monospace,Menlo,monospace;padding:2px 6px;border-radius:4px;pointer-events:none';document.body.appendChild(el)}el.textContent='step='+current+' manual='+manual+' z='+map.getZoom().toFixed(1)},700)}
+var steps=[].slice.call(document.querySelectorAll('.step'));
+var current=null;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var k=e.target.dataset.key;steps.forEach(function(s){s.classList.toggle('active',s===e.target)});if(k!==current){current=k;go(k)}}})},{rootMargin:'-30% 0px -30% 0px',threshold:0});
+steps.forEach(function(s){io.observe(s)});
+steps[0].classList.add('active');go('cover');
+window.addEventListener('scroll',function(){var h=document.documentElement;document.getElementById('progress').style.width=(100*h.scrollTop/(h.scrollHeight-h.clientHeight))+'%'},{passive:true});
+
+['pZones','pOpp','pExistB','pExistU','pUnch','pErr','pVoteY','pVoteN'].forEach(function(nm){document.getElementById('lg_'+nm).addEventListener('change',function(){setPane(nm,this.checked)})});
+var lg=document.getElementById('legend'),lgt=document.getElementById('lgt');
+function lgOpen(o){lg.classList.toggle('closed',!o);lgt.setAttribute('aria-expanded',o);document.getElementById('lgc').innerHTML=o?'&#9662;':'&#9656;'}
+lgt.addEventListener('click',function(){lgOpen(lg.classList.contains('closed'))});
+lgOpen(!mq.matches);
+var ex=document.getElementById('explore');
+function exLabel(on){return mq.matches?(on?'Back to the story':'Explore the map'):(on?'Exit full screen':'Full screen map')}
+function clearBubbles(){map.closePopup();map.eachLayer(function(l){if(l.closeTooltip)l.closeTooltip()})}
+function setExplore(on){if(!on)clearBubbles();document.body.classList.toggle('explore',on);document.getElementById('recenter').hidden=on||!manual;ex.textContent=exLabel(on);applyPass();
+  map.scrollWheelZoom[on?'enable':'disable']();
+  if(!mq.matches){var d=document.documentElement;if(on&&d.requestFullscreen)d.requestFullscreen().catch(function(){});else if(!on&&document.fullscreenElement)document.exitFullscreen()}
+  setTimeout(function(){map.invalidateSize()},80)}
+ex.textContent=exLabel(false);
+(function(){var t0=0,x0=0,y0=0,live=false,blinkT=null;
+ function inUI(el){return !!(el&&el.closest&&el.closest('.card,#maptop,#explore,#recenter,.leaflet-control,.leaflet-popup,#legend'))}
+ document.addEventListener('pointerdown',function(e){live=mq.matches&&!document.body.classList.contains('explore')&&!inUI(e.target);t0=Date.now();x0=e.clientX;y0=e.clientY},{passive:true});
+ document.addEventListener('pointerup',function(e){if(!live)return;live=false;if(Date.now()-t0>450||Math.abs(e.clientX-x0)>10||Math.abs(e.clientY-y0)>10)return;
+  ex.classList.remove('blink');void ex.offsetWidth;ex.classList.add('blink');clearTimeout(blinkT);blinkT=setTimeout(function(){ex.classList.remove('blink')},1300)},{passive:true});
+ document.addEventListener('pointercancel',function(){live=false},{passive:true})})();
+ex.addEventListener('click',function(){setExplore(!document.body.classList.contains('explore'))});
+document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&document.body.classList.contains('explore')&&!mq.matches)setExplore(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.body.classList.contains('explore'))setExplore(false)});
+(mq.addEventListener?function(f){mq.addEventListener('change',f)}:function(f){mq.addListener(f)})(function(){setExplore(false);lgOpen(!mq.matches);setTimeout(function(){map.invalidateSize();if(current)go(current)},60)});
+window.addEventListener('resize',function(){map.invalidateSize()});
+
+/* ---------- address lookup ---------- */
+var AB={street:'st',avenue:'ave',road:'rd',drive:'dr',court:'ct',lane:'ln',place:'pl',boulevard:'blvd',terrace:'ter',circle:'cir',parkway:'pkwy',east:'e',west:'w',north:'n',south:'s',mount:'mt',mountain:'mtn'};
+function norm(t){return t.toLowerCase().replace(/[.,#]/g,' ').split(/\s+/).filter(Boolean).map(function(w){return AB[w]||w})}
+var IDX=[];
+opp.eachLayer(function(l){var p=l.feature.properties;IDX.push({k:'o',a:p.a,t:norm(p.a),p:p,l:l,pane:'pOpp'})});
+[existB,existU].forEach(function(g){g.eachLayer(function(l){var p=l.feature.properties;IDX.push({k:'e',a:p.a,t:norm(p.a),p:p,l:l,pane:p.b==='u'?'pExistU':'pExistB'})})});
+unch.eachLayer(function(l){var p=l.feature.properties;IDX.push({k:'n',a:p.a,t:norm(p.a),p:p,l:l,pane:'pUnch'})});errL.eachLayer(function(l){var p=l.feature.properties;IDX.push({k:'c',a:p.a,t:norm(p.a),p:p,l:l,pane:'pErr'})});
+var q=document.getElementById('q'),res=document.getElementById('sres'),ans=document.getElementById('answer');
+function find(v){var qt=norm(v);if(!qt.length)return[];var out=IDX.filter(function(e){return qt.every(function(w,i){var ex=/^\d+$/.test(w)&&i<qt.length-1;return e.t.some(function(x){return ex?x===w:x.indexOf(w)===0})})});
+  out.sort(function(a,b){return a.a.localeCompare(b.a,undefined,{numeric:true})});return out}
+function show(list){res.innerHTML='';ans.hidden=true;var cur=list.slice(0,6);
+  cur.forEach(function(e){var li=document.createElement('li');li.textContent=e.a+' ('+e.p.z+')';li.onmousedown=function(ev){ev.preventDefault();pick(e)};li.ontouchend=function(ev){ev.preventDefault();pick(e)};res.appendChild(li)});
+  res.hidden=!cur.length;
+  if(!cur.length&&q.value.trim()){res.hidden=true;ans.hidden=false;ans.className='none';ans.textContent="We didn't find that address among the lots that could split or the lots below their district's minimum. It may meet the minimum already, be in another district, or be a different kind of property."}}
+function pick(e){res.hidden=true;q.value=e.a;q.blur();ans.hidden=false;var p=e.p;
+  if(e.k==='c'){ans.className='none';ans.textContent=p.a+": the source data for this lot has a potential data issue, so we haven't counted it."}
+  else if(e.k==='n'){ans.className='none';ans.innerHTML='<b>'+p.a+'</b> is '+n(p.s)+' sq ft. Today\'s rules already allow the same number of lots as a 5,000 sq ft minimum ('+p.p+'), so this change would not affect it.'}
+  else if(e.k==='o'){ans.className='';ans.innerHTML='<b>'+p.a+'</b> is '+n(p.s)+' sq ft in '+p.z+'. By area and frontage it could hold up to <b>'+p.p+' lots</b> under a 5,000 sq ft minimum (today: '+p.q+'). Potential only: we did not check where the house sits, wetlands or other limits.'}
+  else if(p.b==='u'){ans.className='red';ans.innerHTML='<b>'+p.a+'</b> is '+n(p.s)+' sq ft, under 5,000. A 5,000 sq ft minimum would not apply to this lot.'}
+  else{ans.className='warm';ans.innerHTML='<b>'+p.a+'</b> is '+n(p.s)+' sq ft. The minimum in '+p.z+' is '+n(p.m)+', so your lot is '+n(p.m-p.s)+' sq ft below it. A 5,000 sq ft minimum would meet the lot-size rule.'}
+  if(e.pane==='pUnch'||e.pane==='pErr'){setPane(e.pane,true);document.getElementById('extra').open=true}
+  if(e.l){var b=e.l.getBounds();map.flyToBounds(b,{maxZoom:18,padding:[60,60],animate:!reduce,duration:1.2});setTimeout(function(){e.l.openPopup(b.getCenter())},1300)}}
+var mq2=document.getElementById('mq'),mres=document.getElementById('mres'),mmsg=document.getElementById('mmsg');
+function mshow(list){mres.innerHTML='';mmsg.hidden=true;var cur=list.slice(0,7);
+  cur.forEach(function(e){var li=document.createElement('li');li.textContent=e.a+' ('+e.p.z+')'+(e.k==='c'?' - potential data issue':(e.k==='n'?' - unchanged':''));li.onmousedown=function(ev){ev.preventDefault();mpick(e)};li.ontouchend=function(ev){ev.preventDefault();mpick(e)};mres.appendChild(li)});
+  mres.hidden=!cur.length;
+  if(!cur.length&&mq2.value.trim()){mmsg.hidden=false;mmsg.textContent="No match among the lots on this map. It may meet its district's minimum already, be in another district, or be another kind of property."}}
+function mpick(e){mres.hidden=true;mmsg.hidden=true;mq2.value=e.a;mq2.blur();if(mq.matches&&!document.body.classList.contains('explore'))setExplore(true);setPane(e.pane,true);if(e.pane==='pUnch'||e.pane==='pErr')document.getElementById('extra').open=true;var b=e.l.getBounds();map.flyToBounds(b,{maxZoom:18,padding:[80,80],animate:!reduce,duration:1.2});setTimeout(function(){e.l.openPopup(b.getCenter())},1300)}
+mq2.addEventListener('input',function(){mshow(find(mq2.value))});
+mq2.addEventListener('keydown',function(ev){if(ev.key==='Enter'){ev.preventDefault();var l=find(mq2.value);if(l.length)mpick(l[0])}});
+q.addEventListener('input',function(){show(find(q.value))});
+q.addEventListener('keydown',function(ev){if(ev.key==='Enter'){ev.preventDefault();var l=find(q.value);if(l.length)pick(l[0])}});
+q.addEventListener('focus',function(){if(!manual)go('burncoat')});
+if(DOTS){dotsReady=true;syncDots()}
+})();
+</script>
+</Layout>
