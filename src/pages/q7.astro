@@ -103,7 +103,7 @@ body.explore .story *{pointer-events:none!important}
   body.explore #map{pointer-events:auto}
   .story{width:100%;transition:opacity .3s}
   .step{min-height:0;display:block;padding:0 14px}
-  .card{background:rgba(255,255,255,.88);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);padding:18px 18px;opacity:1;transform:none;box-shadow:0 4px 20px rgba(0,0,0,.18)}
+  .card{background:#fff;padding:18px 18px;opacity:1;transform:none;box-shadow:0 4px 20px rgba(0,0,0,.18)}
   .gap{display:block;height:80vh}
   .gap.first{height:30vh}
   h1{font-size:1.85rem}h2{font-size:1.4rem}
@@ -467,7 +467,7 @@ function pick(e){res.hidden=true;q.value=e.a;q.blur();ans.hidden=false;var p=e.p
   else if(p.b==='u'){ans.className='red';ans.innerHTML='<b>'+p.a+'</b> is '+n(p.s)+' sq ft, under 5,000. A 5,000 sq ft minimum would not apply to this lot.'}
   else{ans.className='warm';ans.innerHTML='<b>'+p.a+'</b> is '+n(p.s)+' sq ft. The minimum in '+p.z+' is '+n(p.m)+', so your lot is '+n(p.m-p.s)+' sq ft below it. A 5,000 sq ft minimum would meet the lot-size rule.'}
   if(e.pane==='pUnch'||e.pane==='pErr'){setPane(e.pane,true);document.getElementById('extra').open=true}
-  if(e.l){var b=e.l.getBounds();map.flyToBounds(b,{maxZoom:18,padding:[60,60],animate:!reduce,duration:1.2});setTimeout(function(){e.l.openPopup(b.getCenter())},1300)}}
+  if(e.l){if(mq.matches&&!document.body.classList.contains('explore'))setExplore(true);var b=e.l.getBounds();map.flyToBounds(b,{maxZoom:18,padding:[60,60],animate:!reduce,duration:1.2});setTimeout(function(){e.l.openPopup(b.getCenter())},1300)}}
 var mq2=document.getElementById('mq'),mres=document.getElementById('mres'),mmsg=document.getElementById('mmsg');
 function mshow(list){mres.innerHTML='';mmsg.hidden=true;var cur=list.slice(0,7);
   cur.forEach(function(e){var li=document.createElement('li');li.textContent=e.a+' ('+e.p.z+')'+(e.k==='c'?' - potential data issue':(e.k==='n'?' - unchanged':''));li.onmousedown=function(ev){ev.preventDefault();mpick(e)};li.ontouchend=function(ev){ev.preventDefault();mpick(e)};mres.appendChild(li)});
